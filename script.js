@@ -1,6 +1,12 @@
-var a = 2;
-var b = 5;
-var operator = "+";
+const display = document.querySelector(".result");
+const inputBtns = document.querySelectorAll(".input-btn");
+inputBtns.forEach((btn) => {
+    btn.addEventListener('click', displayContent);
+});
+
+var a;
+var b;
+var operator;
 var result;
 
 function operate(a, b, operator) {
@@ -17,8 +23,6 @@ function operate(a, b, operator) {
             return;
     }
 }
-
-console.log(operate(a, b, operator))
 
 function add(a, b) {
     return a + b;
