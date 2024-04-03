@@ -1,15 +1,63 @@
+var firstNum;
+var secondNum;
+var operator;
+
+var currentInput = "";
+var previousInput = "";
+var operation;
+
 const display = document.querySelector(".result");
-const inputBtns = document.querySelectorAll(".input-btn");
+const previousDisplay = document.querySelector(".previous");
+const clearBtn = document.querySelector(".clear-btn");
+const inputBtns = document.querySelectorAll(".number-btn, .operator-btn");
+const resultBtn = document.querySelector(".equal-btn");
+
+display.textContent = 0;
+
 inputBtns.forEach((btn) => {
-    btn.addEventListener('click', displayContent);
+    btn.addEventListener("click", () => {
+        if (btn.classList.contains("operator-btn")) {
+            // change color
+            inputBtns.forEach((btn) => btn.classList.remove("pressed"));
+            btn.classList.add("pressed");
+
+            operator = btn.textContent;
+            firstNum = currentInput;
+            currentInput = "";
+            displayContent(previousDisplay, operator)
+        } else {
+            displayContent(previousDisplay, '')
+
+            currentInput += btn.textContent;
+            displayContent(display, currentInput);
+        }
+    });
 });
 
-var a;
-var b;
-var operator;
-var result;
+resultBtn.addEventListener("click", () => {
+    inputBtns.forEach((btn) => btn.classList.remove("pressed"));
+    secondNum = currentInput;
+    let result = operate(+firstNum, operator, +secondNum);
 
-function operate(a, b, operator) {
+    displayContent(display, result);
+    currentInput = result.toString();
+    operation = "";
+    firstNum = "";
+});
+
+function displayContent(display, value) {
+    display.textContent = value;
+}
+
+clearBtn.addEventListener("click", () => {
+    firstNum = 0;
+    secondNum = 0;
+    operator = "";
+    currentInput = "";
+    display.textContent = "";
+});
+
+function operate(a, operator, b) {
     switch (operator) {
         case "+":
             return add(a, b);
