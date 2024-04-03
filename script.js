@@ -5,6 +5,7 @@ var operator;
 var currentInput = "";
 var previousInput = "";
 var operation;
+var result;
 
 const display = document.querySelector(".result");
 const previousDisplay = document.querySelector(".previous");
@@ -37,7 +38,7 @@ inputBtns.forEach((btn) => {
 resultBtn.addEventListener("click", () => {
     inputBtns.forEach((btn) => btn.classList.remove("pressed"));
     secondNum = currentInput;
-    let result = operate(+firstNum, operator, +secondNum);
+    result = operate(+firstNum, operator, +secondNum);
 
     displayContent(display, result);
     currentInput = result.toString();
